@@ -44,9 +44,29 @@ const validateCred = (arr) => {
     return sum % 10 === 0;
 }
 
-const invalidToValidCard = (card) => {
-
+const invalidToValidCard = (arr) => {
+    let sum = 0;
+    for(let j = arr.length - 1; j >= 0; j -=2) {
+        let single = arr[j]
+        let double = arr[j-1]*2;
+        let number = double > 9 ? double - 9 : double;
+        sum += number;
+        sum += single;
+    }
+    const remainder = sum % 10;
+    if (remainder !== 0) {
+        const diff = 10 - remainder;
+        arr[arr.length - 1] = (arr[arr.length - 1] + diff) % 10;
+    }
+console.log(arr);
+    return arr;
 }
+
+console.log('invalid1', invalid1);
+console.log(validateCred(invalid1));
+invalidToValidCard(invalid1);
+console.log(validateCred(invalidToValidCard(invalid1)))
+
 
 const findInvalidCards = (arrOfCards) => {
     let invalidCardsArr = [];
